@@ -12,6 +12,7 @@ os.environ['HDF5_DISABLE_VERSION_CHECK'] = '2'
 BASE_DIR = os.path.abspath(os.path.dirname(__file__))
 AUDIO_DIR = os.path.join(BASE_DIR, 'audio')
 BOSSA_DIR = os.path.join(AUDIO_DIR, 'bossa')
+N_BOSSA_DIR = os.path.join(AUDIO_DIR, 'n_bossa')
 RESULT_DIR = os.path.join(BASE_DIR, 'result')
 
 
@@ -58,6 +59,9 @@ def concatenate_music_df(audio_path: str, consolidate_music: list,
 
 
 if __name__ == '__main__':
+    # change this variable to seek music style in the audio folder
+    # there are two stytles BOSSA_DIR and N_BOSSA_DIR
+    ACTUAL_AUDIO_STYLE = BOSSA_DIR
     # LSTM configuration
     shape = 100
     iters = 50
@@ -73,7 +77,7 @@ if __name__ == '__main__':
 
     # creating dataframe from music v1.wav
     # dataset with all musics to train
-    consolidate_train, rate = concatenate_music_df(audio_path=BOSSA_DIR,
+    consolidate_train, rate = concatenate_music_df(audio_path=ACTUAL_AUDIO_STYLE,
                                                    consolidate_music=[],
                                                    start=data_start,
                                                    end=data_end)
@@ -82,7 +86,7 @@ if __name__ == '__main__':
                                           train=True)
 
     # test
-    consolidate_test, rate_test = concatenate_music_df(audio_path=BOSSA_DIR,
+    consolidate_test, rate_test = concatenate_music_df(audio_path=ACTUAL_AUDIO_STYLE,
                                                        consolidate_music=[],
                                                        start=train_start,
                                                        end=train_end)
